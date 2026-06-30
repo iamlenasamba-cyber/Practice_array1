@@ -26,3 +26,13 @@ $categories=[
         "produits"=>[],
     ]
 ];
+
+// question 2
+
+
+foreach($categories as $categorie){
+    if($categorie["produits"]==[]){
+        print_r ($categorie);
+        echo PHP_EOL;
+    }
+};
