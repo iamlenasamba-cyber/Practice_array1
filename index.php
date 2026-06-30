@@ -55,28 +55,94 @@ foreach($categories as $categorie){
     }
 } while (!$nomIsValid);
 
-do {
-    $codeIsValid = true;
-    $code = readline("code : ");
-    if (empty($code)) {
-        echo "code obligatoire\n";
-        $codeIsValid = false;
-    } else {
-        foreach ($categories as $categorie) {
-            if ($categorie["code"] == $code) {
+        do {
+            $codeIsValid = true;
+            $code = readline("code : ");
+            if (empty($code)) {
+                echo "code obligatoire\n";
                 $codeIsValid = false;
-                echo "le code existe deja\n";
+            } else {
+                foreach ($categories as $categorie) {
+                    if ($categorie["code"] == $code) {
+                        $codeIsValid = false;
+                        echo "le code existe deja ...\n";
+                        break;
+                    }
+                }
+            }
+        } while (!$codeIsValid);
+
+$categories[] = [
+    "code" => $code,
+    "nom" => $nom,
+    "produits" => []
+];
+
+print_r($categories);
+
+// question 4
+
+ $categorieExiste =  false;
+          $code = readline("saisir le code :");
+             foreach ($categories as $key => $categorie ) {
+               if (($categorie["code"]) === $code) {
+                    $categorieExiste = true;
+                    break;
+         }
+       } 
+
+if ($categorieExiste) {
+    do {
+        $nomIsValid = true;
+        $nomP = readline("nom du produit : ");
+        if (empty($nomP)) {
+            echo "nom obligatoire\n";
+            $nomIsValid = false;
+            continue;
+        }
+
+        foreach ($categories[$key]["produits"] as $produit) {
+            if ($produit["nom"] === $nomP) {
+                echo "le nom du produit existe deja\n";
+                $nomIsValid = false;
                 break;
             }
         }
-    }
-} while (!$codeIsValid);
 
+        if (!$nomIsValid) {
+            continue;
+        }
 
-    $categories[] =[
-            "code" => $code,
-            "nom" => $nom,
-            "produits" => []
-         ];
- 
-         print_r($categories);
+        $ref = readline("la reference : ");
+        if (empty($ref)) {
+            echo "reference obligatoire\n";
+            $nomIsValid = false;
+            continue;
+        }
+
+        $prix = (int)readline("le prix : ");
+        if ($prix <= 0) {
+            echo "prix invalide\n";
+            $nomIsValid = false;
+            continue;
+        }
+
+        $qte = (int)readline("la quantite: ");
+        if ($qte <= 0) {
+            echo "quantite invalide\n";
+            $nomIsValid = false;
+            continue;
+        }
+    } while (!$nomIsValid);
+
+    $produit = [
+        "nom" => $nomP,
+        "reference" => $ref,
+        "prix" => $prix,
+        "quantite" => $qte
+    ];
+
+    $categories[$key]["produits"][] = $produit;
+} else {
+    echo "la categorie n'existe pas.";
+}
