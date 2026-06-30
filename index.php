@@ -36,3 +36,47 @@ foreach($categories as $categorie){
         echo PHP_EOL;
     }
 };
+
+// question 3
+ do {
+    $nomIsValid = true;
+    $nom = readline("nom : ");
+    if (empty($nom)) {
+        echo "nom obligatoire\n";
+        $nomIsValid = false;
+    } else {
+        foreach ($categories as $categorie) {
+            if ($categorie["nom"] == $nom) {
+                $nomIsValid = false;
+                echo "le nom existe deja\n";
+                break;
+            }
+        }
+    }
+} while (!$nomIsValid);
+
+do {
+    $codeIsValid = true;
+    $code = readline("code : ");
+    if (empty($code)) {
+        echo "code obligatoire\n";
+        $codeIsValid = false;
+    } else {
+        foreach ($categories as $categorie) {
+            if ($categorie["code"] == $code) {
+                $codeIsValid = false;
+                echo "le code existe deja\n";
+                break;
+            }
+        }
+    }
+} while (!$codeIsValid);
+
+
+    $categories[] =[
+            "code" => $code,
+            "nom" => $nom,
+            "produits" => []
+         ];
+ 
+         print_r($categories);
